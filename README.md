@@ -1,5 +1,8 @@
 # Apply GitHub's languages colours into Flutter's `Color` object.
 
+![Pub Version](https://img.shields.io/pub/v/github_colour?style=flat-square)
+![GitHub Sponsors](https://img.shields.io/github/sponsors/rk0cc?style=flat-square)
+
 Receiving [ozh's github-colors](https://github.com/ozh/github-colors) repository with latest commit of [`colors.json`](https://github.com/ozh/github-colors/blob/master/colors.json) to Flutter's `Color` object.
 
 ## Usage
