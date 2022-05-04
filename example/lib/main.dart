@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:github_colour/github_colour.dart';
 
 void main() async {
+  // Construct an instance for future uses.
   await GitHubColour.getInstance();
   runApp(const App());
 }
@@ -9,17 +10,14 @@ void main() async {
 class App extends StatelessWidget {
   const App({Key? key}) : super(key: key);
 
-  // This widget is the root of your application.
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'GitHub Language colour',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: const GitHubColourDemo(),
-    );
-  }
+  Widget build(BuildContext context) => MaterialApp(
+        title: 'GitHub Language colour',
+        theme: ThemeData(
+          primarySwatch: Colors.blue,
+        ),
+        home: const GitHubColourDemo(),
+      );
 }
 
 class GitHubColourDemo extends StatefulWidget {
