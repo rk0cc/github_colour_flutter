@@ -1,0 +1,17 @@
+name: github_colour
+description: Receive GitHub colour to Flutter's colour object
+version: 0.0.1
+homepage: https://www.rk0cc.xyz
+environment:
+  sdk: ">=2.16.2 <3.0.0"
+  flutter: ">=2.10.0"
+dependencies:
+  flutter:
+    sdk: flutter
+  http: ^0.13.4
+  meta: ^1.7.0
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+flutter:
+  uses-material-design: true
