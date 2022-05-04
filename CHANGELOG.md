@@ -1,3 +1,8 @@
+## 1.0.0
+
+* Change `GitHubColours.find`'s fallback method.
+* Add `GitHubColours.contains` for checking does this language is in the list.
+
 ## 0.1.0+1
 
 * Expand description length, no additional function implemented in this version.

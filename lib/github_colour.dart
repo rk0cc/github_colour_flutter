@@ -11,6 +11,9 @@ import 'package:meta/meta.dart' show sealed;
 
 import 'src/cache/cache.dart';
 
+/// A handler when no language data found in [GitHubColour.find].
+typedef LanguageUndefinedHandler = Color Function();
+
 /// An [Error] thrown when response unsuccessfully and no cache can be used.
 class GitHubColourLoadFailedError extends Error {
   /// HTTP response code when fetching colour data.
@@ -22,6 +25,16 @@ class GitHubColourLoadFailedError extends Error {
   @override
   String toString() =>
       "GitHubColourLoadFailedError: Can not receive GitHub language colour from server with HTTP code $responseCode.";
+}
+
+/// An [Error] when no colour data of the language.
+class UndefinedLanguageColourError extends ArgumentError {
+  /// Undefined language name.
+  final String undefinedLanguage;
+
+  UndefinedLanguageColourError._(this.undefinedLanguage)
+      : super("Unknown language '$undefinedLanguage'",
+            "UndefinedLanguageColourError");
 }
 
 /// A class for getting GitHub language colour.
@@ -86,12 +99,20 @@ class GitHubColour {
     return _instance!;
   }
 
-  /// Find [Color] for the [language].
+  /// Find [Color] for the [language] (case sensitive).
   ///
-  /// If [language] is undefined or defined with `null`, it uses [fallback]
-  /// insteaded.
-  Color find(String language, {Color fallback = defaultColour}) =>
-      _githubLangColour[language] ?? fallback;
+  /// If [language] is undefined or defined with `null`, it calls [onUndefined]
+  /// for getting fallback [Color]. By default, it throws
+  /// [UndefinedLanguageColourError].
+  Color find(String language, {LanguageUndefinedHandler? onUndefined}) =>
+      _githubLangColour[language] ??
+      (onUndefined ??
+          () {
+            throw UndefinedLanguageColourError._(language);
+          })();
+
+  /// Check does the [language] existed.
+  bool contains(String language) => _githubLangColour.containsKey(language);
 }
 
 /// Alias type for repersenting "colour" in American English which does exactly
