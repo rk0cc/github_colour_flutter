@@ -2,6 +2,7 @@ name: github_colour
 description: Receive GitHub colour to Flutter's colour object
 version: 0.0.1
 homepage: https://www.rk0cc.xyz
+repository: https://github.com/rk0cc/github_colour_flutter
 environment:
   sdk: ">=2.16.2 <3.0.0"
   flutter: ">=2.10.0"
