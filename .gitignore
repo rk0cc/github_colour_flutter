@@ -39,3 +39,4 @@ build/
 /example/pubspec.lock
 /example/pubspec.yaml
 /example/README.md
+/example/.flutter-plugins*

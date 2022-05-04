@@ -10,8 +10,8 @@ dependencies:
     sdk: flutter
   http: ^0.13.4
   meta: ^1.7.0
-dev_dependencies:
-  flutter_test:
-    sdk: flutter
+  path: ^1.8.1
+  path_provider: ^2.0.9
+  lzma: ^1.0.1
 flutter:
   uses-material-design: true

@@ -9,7 +9,9 @@ import 'package:flutter/widgets.dart' show Color;
 import 'package:http/http.dart' as http show get;
 import 'package:meta/meta.dart' show sealed;
 
-/// An [Error] thrown when response unsuccessfully.
+import 'src/cache/cache.dart';
+
+/// An [Error] thrown when response unsuccessfully and no cache can be used.
 class GitHubColourLoadFailedError extends Error {
   /// HTTP response code when fetching colour data.
   final int responseCode;
@@ -48,17 +50,26 @@ class GitHubColour {
 
       var resp = await http.get(ghc);
 
+      Map<String, Color> ghjson;
+
       if (resp.statusCode != 200) {
-        throw GitHubColourLoadFailedError._(resp.statusCode);
+        try {
+          ghjson = await getCache();
+        } catch (e) {
+          throw GitHubColourLoadFailedError._(resp.statusCode);
+        }
+      } else {
+        ghjson = (jsonDecode(resp.body) as Map<String, dynamic>)
+            .map<String, Color>((key, value) {
+          String hex = value["color"] ?? defaultColourHex;
+          hex = "FF${hex.substring(1).toUpperCase()}";
+
+          return MapEntry(key, Color(int.parse(hex, radix: 16)));
+        });
+        await saveCache(ghjson);
       }
 
-      _instance = GitHubColour._((jsonDecode(resp.body) as Map<String, dynamic>)
-          .map<String, Color>((key, value) {
-        String hex = value["color"] ?? defaultColourHex;
-        hex = "FF${hex.substring(1).toUpperCase()}";
-
-        return MapEntry(key, Color(int.parse(hex, radix: 16)));
-      }));
+      _instance = GitHubColour._(ghjson);
     }
 
     return _instance!;
