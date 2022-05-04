@@ -27,7 +27,7 @@ class YourAppWidget extends StatelessWidget {
 or wrapped into `FutureBuilder` directly in `State`'s `initState` (not recommended uses `getInstance()` directly in `FutureBuilder`):
 
 ```dart
-class YourAnotherAppWidget extends State<YourStatefulWidget> {
+class _YourAnotherAppWidgetState extends State<YourAnotherAppWidget> {
     late final Future<GitHubColour> _ghc;
 
     @override
