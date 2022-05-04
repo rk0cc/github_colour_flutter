@@ -28,5 +28,14 @@
 .packages
 build/
 
-example/*
-!/example/lib/
+/example/android/
+/example/ios/
+/example/linux/
+/example/macos/
+/example/windows/
+/example/web/
+/example/.metadata
+/example/analysis_options.yaml
+/example/pubspec.lock
+/example/pubspec.yaml
+/example/README.md
