@@ -49,6 +49,11 @@ class _YourAnotherAppWidgetState extends State<YourAnotherAppWidget> {
 }
 ```
 
+## Cache for connection failed
+
+This package supported caching system as a backup when making request failed. It uses LZMA compress data and store as a file under temporary directory (for VM)
+or store as `shared_preference` (for Web, which is `LocalStorage`).
+
 ## Note for American English developers
 
 It's provide alias class `GitHubColor` for who uses "color" mostly.

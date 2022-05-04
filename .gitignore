@@ -40,3 +40,4 @@ build/
 /example/pubspec.yaml
 /example/README.md
 /example/.flutter-plugins*
+/example/lib/generated_plugin_registrant.dart
