@@ -53,11 +53,9 @@ It's provide alias class `GitHubColor` for who uses "color" mostly.
 ## Screenshots
 
 ![C++](https://i.imgur.com/6qOSnXq.png)
-
 ![Dart](https://i.imgur.com/uSiOYUF.png)
 
 ![Go](https://i.imgur.com/Ksf3x3o.png)
-
 ![Java](https://i.imgur.com/6Ho6RyT.png)
 
 ![Python](https://i.imgur.com/yaTEp1i.png)
