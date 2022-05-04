@@ -1,4 +1,4 @@
-# AApply GitHub's languages colours into Flutter's `Color` object.
+# Apply GitHub's languages colours into Flutter's `Color` object.
 
 Receiving [ozh's github-colors](https://github.com/ozh/github-colors) repository with latest commit of [`colors.json`](https://github.com/ozh/github-colors/blob/master/colors.json) to Flutter's `Color` object.
 
