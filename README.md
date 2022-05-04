@@ -46,6 +46,10 @@ class YourAnotherAppWidget extends State<YourStatefulWidget> {
 }
 ```
 
+## Note for American English developers
+
+It's provide alias class `GitHubColor` for who uses "color" mostly.
+
 ## Screenshots
 
 ![C++](https://i.imgur.com/6qOSnXq.png)
