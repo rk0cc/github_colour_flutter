@@ -35,7 +35,7 @@ class YourAppWidget extends StatelessWidget {
 }
 ```
 
-or wrapped into `FutureBuilder` with initalized `Future<GitHubColour>` variable into `State`'s `initState` (not recommended uses `getInstance()` directly in `FutureBuilder`):
+or wrapped into `FutureBuilder` with initalized `Future<GitHubColour>` variable from `State`'s `initState` (not recommended uses `getInstance()` directly in `FutureBuilder`):
 
 ```dart
 class _YourAnotherAppWidgetState extends State<YourAnotherAppWidget> {

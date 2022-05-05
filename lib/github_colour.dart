@@ -4,7 +4,6 @@
 library github_colour;
 
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart'
@@ -102,7 +101,9 @@ class GitHubColour {
   /// When all resources failed, it throws
   /// [GitHubColourNoAvailableResourceError]. If [offlineLastResort] disabled,
   /// either [GitHubColourHTTPLoadFailedError] (if network available) or
-  /// [SocketException] (without network access) throws.
+  /// [Exception] that repersenting no network state (e.g
+  /// [SocketException](https://api.dart.dev/stable/dart-io/SocketException-class.html)
+  /// in `"dart:io"` package).
   ///
   /// [offlineLastResort] only works when [getInstance] invoked first time
   /// in entire runtime. This parameter will be ignored once the instance

@@ -1,3 +1,8 @@
+## 1.1.0+1
+
+* Fix droppped web platform supported issue.
+* Better documentation.
+
 ## 1.1.0
 
 * Included `colors.json` for last resort if enabled offline as a last resort when 
