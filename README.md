@@ -7,11 +7,19 @@ Receiving [ozh's github-colors](https://github.com/ozh/github-colors) repository
 
 ## Usage
 
-You can either initalized `GitHubColour` before `runApp(Widget)`:
+You can either initalized `GitHubColour` before `runApp(Widget)` (Call it after `WidgetsFlutterBinding.ensureInitialized()` if want to get data from offline):
 
 ```dart
+// With offline last resort
 void main() async {
+    WidgetsFlutterBinding.ensureInitialized();
     await GitHubColour.getInstance();
+    runApp(const YourApp());
+}
+
+// Without offline last resort
+void main() async {
+    await GitHubColour.getInstance(offlineLastResort = false);
     runApp(const YourApp());
 }
 ```
@@ -27,7 +35,7 @@ class YourAppWidget extends StatelessWidget {
 }
 ```
 
-or wrapped into `FutureBuilder` directly in `State`'s `initState` (not recommended uses `getInstance()` directly in `FutureBuilder`):
+or wrapped into `FutureBuilder` with initalized `Future<GitHubColour>` variable into `State`'s `initState` (not recommended uses `getInstance()` directly in `FutureBuilder`):
 
 ```dart
 class _YourAnotherAppWidgetState extends State<YourAnotherAppWidget> {
@@ -53,6 +61,8 @@ class _YourAnotherAppWidgetState extends State<YourAnotherAppWidget> {
 
 This package supported caching system as a backup when making request failed. It uses LZMA compress data and store as a file under temporary directory (for VM)
 or store as `shared_preference` (for Web, which is `LocalStorage`).
+
+If no cache available, by default, `GitHubColour.getInstance()` will uses [local's `colors.json`](lib/colors.json) as last resort. However, this package will not make a new release when newer commit of `color.json` pushed since it minified that ensure the package can be downloaded as fast as possible.
 
 ## Note for American English developers
 

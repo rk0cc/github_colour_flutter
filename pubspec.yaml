@@ -1,6 +1,6 @@
 name: github_colour
 description: Receive ozh's GitHub colour to Flutter's colour implementation with caching and fallback.
-version: 1.0.0
+version: 1.1.0
 homepage: https://www.rk0cc.xyz
 repository: https://github.com/rk0cc/github_colour_flutter
 environment:
@@ -17,3 +17,5 @@ dependencies:
   shared_preferences: ^2.0.13
 flutter:
   uses-material-design: true
+  assets:
+    - packages/github_colour/colors.json

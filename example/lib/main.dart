@@ -2,8 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:github_colour/github_colour.dart';
 
 void main() async {
+  // Required if want to uses offline JSON data as last resort.
+  WidgetsFlutterBinding.ensureInitialized();
   // Construct an instance for future uses.
   await GitHubColour.getInstance();
+
+  // It does not required binding if disabled offline last resort
+  /*
+    await GitHubColour.getInstance(offlineLastResort: false);
+   */
+
   runApp(const App());
 }
 
@@ -47,7 +55,10 @@ class _GitHubColourDemoState extends State<GitHubColourDemo> {
   @override
   Widget build(BuildContext context) => Scaffold(
       appBar: AppBar(
-          backgroundColor: GitHubColour.getExistedInstance().find(_lang),
+          // Change app bar background colour when enter the language.
+          backgroundColor: GitHubColour.getExistedInstance().find(_lang,
+              // Use default colour if unexisted.
+              onUndefined: () => GitHubColour.defaultColour),
           title: const Text("GitHub colour")),
       body: Center(
           child: Column(
@@ -58,6 +69,7 @@ class _GitHubColourDemoState extends State<GitHubColourDemo> {
                 margin: const EdgeInsets.all(12),
                 constraints: const BoxConstraints(maxWidth: 350),
                 child: TextField(
+                    // Enter the language here
                     textInputAction: TextInputAction.go,
                     onSubmitted: (_) {
                       _changeColour();
@@ -68,6 +80,7 @@ class _GitHubColourDemoState extends State<GitHubColourDemo> {
                     autocorrect: false)),
             const Divider(height: 8, indent: 1.5, thickness: 0.25),
             SizedBox(
+                // Submit button
                 width: 80,
                 height: 35,
                 child: ElevatedButton(

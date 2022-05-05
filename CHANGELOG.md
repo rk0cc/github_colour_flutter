@@ -1,3 +1,10 @@
+## 1.1.0
+
+* Included `colors.json` for last resort if enabled offline as a last resort when 
+  create new instance of `GitHubColour`. 
+* Allows get all data in `GitHubColour` to `ColorSwatch`.
+* Provides `Set` with all availabled languages name.
+
 ## 1.0.0
 
 * Change `GitHubColours.find`'s fallback method.
