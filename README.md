@@ -30,7 +30,9 @@ then uses `getExistedInstance()` inside the `Widget`:
 class YourAppWidget extends StatelessWidget {
     @override
     Widget build(BuildContext context) => Scaffold(
-        appBar: AppBar(backgroundColor: GitHubColour.getExistedInstance().find("Go"))
+        appBar: AppBar(
+            backgroundColor: GitHubColour.getExistedInstance().find("Go")
+        )
     );
 }
 ```
