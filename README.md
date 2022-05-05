@@ -19,7 +19,7 @@ void main() async {
 
 // Without offline last resort
 void main() async {
-    await GitHubColour.getInstance(offlineLastResort = false);
+    await GitHubColour.getInstance(offlineLastResort: false);
     runApp(const YourApp());
 }
 ```
