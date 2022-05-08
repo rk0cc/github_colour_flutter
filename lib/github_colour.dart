@@ -12,6 +12,9 @@ import 'package:http/http.dart' as http show get;
 import 'package:meta/meta.dart' show sealed;
 
 import 'src/cache/cache.dart';
+import 'src/cache/exception.dart';
+
+export 'src/cache/exception.dart';
 
 const String _src =
     "https://raw.githubusercontent.com/ozh/github-colors/master/colors.json";
@@ -108,6 +111,10 @@ class GitHubColour {
   /// [offlineLastResort] only works when [getInstance] invoked first time
   /// in entire runtime. This parameter will be ignored once the instance
   /// constructed.
+  ///
+  /// Since `1.2.0`, it added chechsum validation on the cache. When the cache's
+  /// checksum does not matched, it throws
+  /// [GitHubColourCacheChecksumMismatchedError].
   static Future<GitHubColour> getInstance(
       {bool offlineLastResort = true}) async {
     if (_instance == null) {
