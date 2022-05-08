@@ -5,6 +5,8 @@
 
 Receiving [ozh's github-colors](https://github.com/ozh/github-colors) repository with latest commit of [`colors.json`](https://github.com/ozh/github-colors/blob/master/colors.json) to Flutter's `Color` object.
 
+It also provide [web demo](https://osp.rk0cc.xyz/github_colour_flutter/) for the demo.
+
 ## Usage
 
 You can either initalized `GitHubColour` before `runApp(Widget)` (Call it after `WidgetsFlutterBinding.ensureInitialized()` if want to get data from offline):

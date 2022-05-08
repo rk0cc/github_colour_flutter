@@ -1,3 +1,10 @@
+## 1.2.0
+
+* Added SHA 3 checksum validation for cache file.
+  * (VM) New directory created with cache file and checksum.
+    * The origin cache file no longer be used.
+  * (Web) Store checksum in new local storage field.
+
 ## 1.1.0+1
 
 * Fix droppped web platform supported issue.
