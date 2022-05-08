@@ -1,3 +1,7 @@
+## 1.2.2
+
+* Exceptions arrangment.
+
 ## 1.2.1+1
 
 * Remove unused package.
