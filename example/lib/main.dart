@@ -1,17 +1,16 @@
+/*
+  This source code is used for demo page.
+
+  Please do not publish this example to pub.dev.
+*/
+
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:github_colour/github_colour.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 void main() async {
-  // Required if want to uses offline JSON data as last resort.
-  WidgetsFlutterBinding.ensureInitialized();
-  // Construct an instance for future uses.
-  await GitHubColour.getInstance();
-
-  // It does not required binding if disabled offline last resort
-  /*
-    await GitHubColour.getInstance(offlineLastResort: false);
-   */
-
+  await GitHubColour.getInstance(offlineLastResort: false);
   runApp(const App());
 }
 
@@ -52,14 +51,47 @@ class _GitHubColourDemoState extends State<GitHubColourDemo> {
     });
   }
 
+  Color get _githubColourState => GitHubColour.getExistedInstance().find(_lang,
+      // Use default colour if unexisted.
+      onUndefined: () => GitHubColour.defaultColour);
+
   @override
   Widget build(BuildContext context) => Scaffold(
       appBar: AppBar(
           // Change app bar background colour when enter the language.
-          backgroundColor: GitHubColour.getExistedInstance().find(_lang,
-              // Use default colour if unexisted.
-              onUndefined: () => GitHubColour.defaultColour),
+          backgroundColor: _githubColourState,
           title: const Text("GitHub colour")),
+      drawer: Drawer(
+          child: ListView(children: <Widget>[
+        DrawerHeader(
+            decoration:
+                BoxDecoration(color: _githubColourState.withOpacity(0.5)),
+            child: SizedBox.expand(
+                child: Align(
+                    alignment: Alignment.topLeft,
+                    child: IconButton(
+                        onPressed: () => Navigator.pop(context),
+                        icon: const Icon(Icons.arrow_back))))),
+        ListTile(
+            leading: const Icon(Icons.money),
+            title: const Text("Sponsor"),
+            onTap: () async {
+              final Uri ghs = Uri.parse("https://github.com/sponsors/rk0cc");
+              if (await canLaunchUrl(ghs)) {
+                launchUrl(ghs);
+              }
+            }),
+        ListTile(
+            leading: const Icon(FontAwesomeIcons.github),
+            title: const Text("View source code in GitHub"),
+            onTap: () async {
+              final Uri src =
+                  Uri.parse("https://github.com/rk0cc/github_colour_flutter");
+              if (await canLaunchUrl(src)) {
+                launchUrl(src);
+              }
+            })
+      ])),
       body: Center(
           child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
