@@ -17,9 +17,11 @@ Future<void> saveCache(Map<String, Color> githubColour) async {
 
   Uint8List rghc = encodedColour(githubColour);
 
-  // There are no ways to store bytes directly
-  await sp.setString(_spKey, base64Encode(compressGHC(rghc)));
-  await sp.setString(_spcKey, generateChecksum(rghc));
+  if (!isValidChecksum(sp.getString(_spcKey) ?? "", rghc)) {
+    // There are no ways to store bytes directly
+    await sp.setString(_spKey, base64Encode(compressGHC(rghc)));
+    await sp.setString(_spcKey, generateChecksum(rghc));
+  }
 }
 
 Future<Map<String, Color>> getCache() async {

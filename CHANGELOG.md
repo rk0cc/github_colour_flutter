@@ -1,3 +1,7 @@
+## 1.2.1
+
+* Limit writing cache when the context is difference.
+
 ## 1.2.0
 
 * Added SHA 3 checksum validation for cache file.
