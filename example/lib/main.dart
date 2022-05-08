@@ -7,6 +7,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:github_colour/github_colour.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 void main() async {
@@ -21,8 +22,8 @@ class App extends StatelessWidget {
   Widget build(BuildContext context) => MaterialApp(
         title: 'GitHub Language colour',
         theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
+            primarySwatch: Colors.blue,
+            textTheme: GoogleFonts.robotoTextTheme()),
         home: const GitHubColourDemo(),
       );
 }
