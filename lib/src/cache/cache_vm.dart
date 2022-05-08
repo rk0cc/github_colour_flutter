@@ -50,8 +50,11 @@ Future<void> saveCache(Map<String, Color> githubColour) async {
   File cf = await _cacheChecksum;
 
   Uint8List rghc = encodedColour(githubColour);
-  cf = await cf.writeAsString(generateChecksum(rghc), flush: true);
-  tf = await tf.writeAsBytes(compressGHC(rghc), flush: true);
+  if (!isValidChecksum(await cf.readAsString(), rghc)) {
+    // Only write when checksum is difference.
+    cf = await cf.writeAsString(generateChecksum(rghc), flush: true);
+    tf = await tf.writeAsBytes(compressGHC(rghc), flush: true);
+  }
 }
 
 Future<Map<String, Color>> getCache() async {
