@@ -1,6 +1,6 @@
 /// As a Java's `Throwable` roles which uses for implementing [Exception] and
 /// [Error] in this package.
-abstract class GitHubColourThrowable implements Error {
+abstract class GitHubColourThrowable {
   /// Message display in [GitHubColourThrowable].
   ///
   /// This getter as `dynamic` type that to make compatable in built-in
