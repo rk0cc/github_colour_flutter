@@ -1,3 +1,7 @@
+## 1.2.5
+
+* Remove `external` in `GitHubColourThrowable`.
+
 ## 1.2.4
 
 * Change `GitHubColour`'s default colour from `#8f8f8f` to `#f0f0f0`.
