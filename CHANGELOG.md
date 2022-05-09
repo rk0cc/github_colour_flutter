@@ -1,3 +1,8 @@
+## 1.2.3
+
+* Add generic throwable type `GitHubColourThrowable`
+* Exceptions arrangment.
+
 ## 1.2.2
 
 * Exceptions arrangment.
