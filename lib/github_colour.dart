@@ -49,7 +49,7 @@ class GitHubColourNoAvailableResourceError extends GitHubColourLoadFailedError {
 
 /// An [Error] when no colour data of the language.
 class UndefinedLanguageColourError extends ArgumentError
-    implements GitHubColourLoadFailedError {
+    implements GitHubColourThrowable {
   /// Undefined language name.
   final String undefinedLanguage;
 
