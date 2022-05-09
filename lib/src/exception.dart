@@ -11,7 +11,9 @@ abstract class GitHubColourThrowable implements Error {
   ///
   /// This factory aims to prevent implementing [GitHubColourThrowable] by
   /// extending classes.
-  external factory GitHubColourThrowable();
+  factory GitHubColourThrowable() {
+    throw UnimplementedError("Do not extends this throwable.");
+  }
 }
 
 /// An [Error] that can not fetch [GitHubColour] data.
