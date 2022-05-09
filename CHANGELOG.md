@@ -1,3 +1,12 @@
+## 1.2.3
+
+* Add generic throwable type `GitHubColourThrowable`
+* Exceptions arrangment.
+
+## 1.2.2
+
+* Exceptions arrangment.
+
 ## 1.2.1+1
 
 * Remove unused package.

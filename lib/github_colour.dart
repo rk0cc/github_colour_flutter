@@ -13,26 +13,16 @@ import 'package:meta/meta.dart' show sealed;
 
 import 'src/cache/cache.dart';
 import 'src/cache/exception.dart';
+import 'src/exception.dart';
 
 export 'src/cache/exception.dart';
+export 'src/exception.dart';
 
 const String _src =
     "https://raw.githubusercontent.com/ozh/github-colors/master/colors.json";
 
 /// A handler when no language data found in [GitHubColour.find].
 typedef LanguageUndefinedHandler = Color Function();
-
-/// An [Error] that can not fetch [GitHubColour] data.
-abstract class GitHubColourLoadFailedError extends Error {
-  final String _message;
-
-  GitHubColourLoadFailedError._(
-      [this._message =
-          "There are some unexpected error when loading resources."]);
-
-  @override
-  String toString() => _message;
-}
 
 /// An [Error] thrown when response unsuccessfully and no cache can be used.
 class GitHubColourHTTPLoadFailedError extends GitHubColourLoadFailedError {
@@ -41,7 +31,7 @@ class GitHubColourHTTPLoadFailedError extends GitHubColourLoadFailedError {
 
   GitHubColourHTTPLoadFailedError._(this.responseCode)
       : assert(responseCode != 200),
-        super._();
+        super();
 
   @override
   String toString() =>
@@ -50,7 +40,7 @@ class GitHubColourHTTPLoadFailedError extends GitHubColourLoadFailedError {
 
 /// An [Error] thrown when no resources available to initalize [GitHubColour].
 class GitHubColourNoAvailableResourceError extends GitHubColourLoadFailedError {
-  GitHubColourNoAvailableResourceError._() : super._();
+  GitHubColourNoAvailableResourceError._() : super();
 
   @override
   String toString() =>
@@ -58,7 +48,8 @@ class GitHubColourNoAvailableResourceError extends GitHubColourLoadFailedError {
 }
 
 /// An [Error] when no colour data of the language.
-class UndefinedLanguageColourError extends ArgumentError {
+class UndefinedLanguageColourError extends ArgumentError
+    implements GitHubColourThrowable {
   /// Undefined language name.
   final String undefinedLanguage;
 
