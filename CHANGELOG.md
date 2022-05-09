@@ -1,3 +1,7 @@
+## 1.2.6
+
+* Remove implement `Error` in `GitHubColourThrowable`.
+
 ## 1.2.5
 
 * Remove `external` in `GitHubColourThrowable`.
