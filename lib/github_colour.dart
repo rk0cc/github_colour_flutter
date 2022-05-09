@@ -58,14 +58,18 @@ class UndefinedLanguageColourError extends ArgumentError
             "UndefinedLanguageColourError");
 }
 
-Map<String, Color> _colourReader(String json) =>
-    (jsonDecode(json) as Map<String, dynamic>)
-        .map<String, Color>((language, node) {
-      String hex = node["color"] ?? GitHubColour.defaultColourHex;
-      hex = "FF${hex.substring(1).toUpperCase()}";
+Color _hex2C(String hex, [String alphaHex = "ff"]) {
+  assert(RegExp(r"^#[0-9a-f]{6}$", caseSensitive: false).hasMatch(hex));
+  assert(RegExp(r"^[0-9a-f]{2}$", caseSensitive: false).hasMatch(alphaHex));
 
-      return MapEntry(language, Color(int.parse(hex, radix: 16)));
-    });
+  return Color(
+      int.parse("$alphaHex${hex.substring(1)}".toUpperCase(), radix: 16));
+}
+
+Map<String, Color> _colourReader(String json) =>
+    (jsonDecode(json) as Map<String, dynamic>).map<String, Color>(
+        (language, node) => MapEntry(
+            language, _hex2C(node["color"] ?? GitHubColour.defaultColourHex)));
 
 /// A class for getting GitHub language colour.
 @sealed
@@ -74,10 +78,10 @@ class GitHubColour {
   final Map<String, Color> _githubLangColour;
 
   /// A [String] of hex value when the language is undefined or null.
-  static const String defaultColourHex = "#8f8f8f";
+  static const String defaultColourHex = "#f0f0f0";
 
   /// [Color] object of [defaultColourHex].
-  static const Color defaultColour = Color(0xff8f8f8f);
+  static Color get defaultColour => _hex2C(defaultColourHex);
 
   GitHubColour._(Map<String, Color> githubLangColour)
       : this._githubLangColour = Map.unmodifiable(githubLangColour);
@@ -122,6 +126,7 @@ class GitHubColour {
         ghjson = _colourReader(resp.body);
       } catch (neterr) {
         try {
+          // Second source.
           ghjson = await getCache();
           cacheSource = true;
         } catch (cerr) {
@@ -142,6 +147,7 @@ class GitHubColour {
       }
 
       if (!cacheSource) {
+        // Do nothing if received data is exact same with source.
         await saveCache(ghjson);
       }
 
