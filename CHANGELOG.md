@@ -1,3 +1,7 @@
+## 2.0.0+1
+
+* Fix document
+
 ## 2.0.0
 
 * `GitHubColour` implemented with `ColorSwatch` and `UnmodifiableMapBase` now.

@@ -22,7 +22,8 @@ export 'src/exception.dart';
 const String _src =
     "https://raw.githubusercontent.com/ozh/github-colors/master/colors.json";
 
-/// A handler when no language data found in [GitHubColour.find].
+/// A handler when no language data found in [GitHubColour].
+@Deprecated("This handler will be removed later.")
 typedef LanguageUndefinedHandler = Color Function();
 
 /// An [Error] thrown when response unsuccessfully and no cache can be used.
