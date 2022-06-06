@@ -4,6 +4,7 @@
   * Serval old API deprecated.
 * Required Dart `2.17.0` with Flutter `3.0.0`
 * (GitHub) Upload entire example project source code.
+* Update last resort `color.json` to [`e358b0a`](https://github.com/ozh/github-colors/commit/e358b0ac8ff6453d8d60b2fbe7b4ec7552dbafce).
 
 ## 1.2.6
 
