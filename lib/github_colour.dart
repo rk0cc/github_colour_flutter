@@ -74,6 +74,9 @@ Map<String, Color> _colourReader(String json) =>
             language, _hex2C(node["color"] ?? GitHubColour._defaultColourHex)));
 
 /// A class for getting GitHub language colour.
+///
+/// Since 2.0.0, [GitHubColour] implemented [ColorSwatch] that getting colour
+/// can be more convenience. And serval old API will be [Deprecated].
 @sealed
 class GitHubColour extends UnmodifiableMapBase<String, Color>
     implements ColorSwatch<String> {
@@ -210,6 +213,9 @@ class GitHubColour extends UnmodifiableMapBase<String, Color>
   @Deprecated("This getter is replaced by MapBase's keys.")
   Set<String> get listedLanguage => Set.unmodifiable(keys);
 
+  /// Resolve [key] as language and find repersented [Color] from providers.
+  ///
+  /// If [key] is undefined, it returns default colour instead.
   @override
   Color operator [](Object? key) => _githubLangColour[key] ?? _defaultColour;
 

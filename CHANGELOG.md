@@ -1,3 +1,10 @@
+## 2.0.0
+
+* `GitHubColour` implemented with `ColorSwatch` and `UnmodifiableMapBase` now.
+  * Serval old API deprecated.
+* Required Dart `2.17.0` with Flutter `3.0.0`
+* (GitHub) Upload entire example project source code.
+
 ## 1.2.6
 
 * Remove implement `Error` in `GitHubColourThrowable`.
