@@ -49,6 +49,7 @@ class GitHubColourNoAvailableResourceError extends GitHubColourLoadFailedError {
 }
 
 /// An [Error] when no colour data of the language.
+@Deprecated("This exception will be removed with find()")
 class UndefinedLanguageColourError extends ArgumentError
     implements GitHubColourThrowable {
   /// Undefined language name.
@@ -210,7 +211,7 @@ class GitHubColour extends UnmodifiableMapBase<String, Color>
   Set<String> get listedLanguage => Set.unmodifiable(keys);
 
   @override
-  Color? operator [](Object? key) => _githubLangColour[key];
+  Color operator [](Object? key) => _githubLangColour[key] ?? _defaultColour;
 
   @override
   int get alpha => _defaultColour.red;
