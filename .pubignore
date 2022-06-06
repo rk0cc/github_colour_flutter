@@ -1,6 +1,4 @@
-<<<<<<< HEAD
 docs/
-=======
 /example/android/
 /example/ios/
 /example/linux/
@@ -12,4 +10,3 @@ docs/
 /example/pubspec.lock
 /example/pubspec.yaml
 /example/README.md
->>>>>>> main
