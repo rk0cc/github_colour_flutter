@@ -1,20 +1,20 @@
 name: github_colour
 description: Receive ozh's GitHub colour to Flutter's colour implementation with caching and fallback.
-version: 1.2.6
+version: 2.0.0
 homepage: https://www.rk0cc.xyz
 repository: https://github.com/rk0cc/github_colour_flutter
 environment:
-  sdk: ">=2.16.2 <3.0.0"
-  flutter: ">=2.10.0"
+  sdk: ">=2.17.0 <3.0.0"
+  flutter: ">=3.0.0"
 dependencies:
   flutter:
     sdk: flutter
   http: ^0.13.4
   meta: ^1.7.0
   path: ^1.8.1
-  path_provider: ^2.0.9
+  path_provider: ^2.0.10
   lzma: ^1.0.1
-  shared_preferences: ^2.0.13
+  shared_preferences: ^2.0.15
   sha3: ^0.2.0
   hex: ^0.2.0
 flutter:

@@ -3,6 +3,7 @@
 /// [Color].
 library github_colour;
 
+import 'dart:collection';
 import 'dart:convert';
 
 import 'package:flutter/services.dart';
@@ -48,6 +49,7 @@ class GitHubColourNoAvailableResourceError extends GitHubColourLoadFailedError {
 }
 
 /// An [Error] when no colour data of the language.
+@Deprecated("This exception will be removed with find()")
 class UndefinedLanguageColourError extends ArgumentError
     implements GitHubColourThrowable {
   /// Undefined language name.
@@ -69,19 +71,23 @@ Color _hex2C(String hex, [String alphaHex = "ff"]) {
 Map<String, Color> _colourReader(String json) =>
     (jsonDecode(json) as Map<String, dynamic>).map<String, Color>(
         (language, node) => MapEntry(
-            language, _hex2C(node["color"] ?? GitHubColour.defaultColourHex)));
+            language, _hex2C(node["color"] ?? GitHubColour._defaultColourHex)));
 
 /// A class for getting GitHub language colour.
+///
+/// Since 2.0.0, [GitHubColour] implemented [ColorSwatch] that getting colour
+/// can be more convenience. And serval old API will be [Deprecated].
 @sealed
-class GitHubColour {
+class GitHubColour extends UnmodifiableMapBase<String, Color>
+    implements ColorSwatch<String> {
   static GitHubColour? _instance;
   final Map<String, Color> _githubLangColour;
 
   /// A [String] of hex value when the language is undefined or null.
-  static const String defaultColourHex = "#f0f0f0";
+  static const String _defaultColourHex = "#f0f0f0";
 
   /// [Color] object of [defaultColourHex].
-  static Color get defaultColour => _hex2C(defaultColourHex);
+  static Color get _defaultColour => _hex2C(_defaultColourHex);
 
   GitHubColour._(Map<String, Color> githubLangColour)
       : this._githubLangColour = Map.unmodifiable(githubLangColour);
@@ -173,6 +179,7 @@ class GitHubColour {
   /// If [language] is undefined or defined with `null`, it calls [onUndefined]
   /// for getting fallback [Color]. By default, it throws
   /// [UndefinedLanguageColourError].
+  @Deprecated("You can uses operator [] now.")
   Color find(String language, {LanguageUndefinedHandler? onUndefined}) =>
       _githubLangColour[language] ??
       (onUndefined ??
@@ -181,33 +188,75 @@ class GitHubColour {
           })();
 
   /// Check does the [language] existed.
-  bool contains(String language) => _githubLangColour.containsKey(language);
+  @Deprecated("Please uses containsKey")
+  bool contains(String language) => containsKey(language);
 
-  /// Export all recorded of [GitHubColour] data to [ColorSwatch] with [String]
-  /// as index.
+  /// **This method do absolutely nothing with parsed paramenters and will
+  /// be removed later**
   ///
-  /// By default, [includeDefault] set as `false`. If `true`, the [ColorSwatch]
+  /// ~~Export all recorded of [GitHubColour] data to [ColorSwatch] with [String]
+  /// as index.~~
+  ///
+  /// ~~By default, [includeDefault] set as `false`. If `true`, the [ColorSwatch]
   /// will appended `__default__` index for repersenting [defaultColour] which
-  /// also is [ColorSwatch]'s default colour.
+  /// also is [ColorSwatch]'s default colour.~~
   ///
-  /// If [overridePrimaryColour] applied and [find] existed [Color], it applied
-  /// as [ColorSwatch]'s primary colour instead of [defaultColour].
+  /// ~~If [overridePrimaryColour] applied and [find] existed [Color], it applied
+  /// as [ColorSwatch]'s primary colour instead of [defaultColour].~~
+  @Deprecated(
+      "This method will be removed as GitHubColour implemented ColorSwatch")
   ColorSwatch<String> toSwatch(
-      {bool includeDefault = false, String? overridePrimaryColour}) {
-    Map<String, Color> modGLC = Map.from(_githubLangColour);
-
-    if (includeDefault) {
-      modGLC["__default__"] = defaultColour;
-    }
-
-    return ColorSwatch(
-        find(overridePrimaryColour ?? "_", onUndefined: () => defaultColour)
-            .value,
-        modGLC);
-  }
+          {bool includeDefault = false, String? overridePrimaryColour}) =>
+      this;
 
   /// Get a [Set] of [String] that contains all recorded langauages name.
-  Set<String> get listedLanguage => Set.unmodifiable(_githubLangColour.keys);
+  @Deprecated("This getter is replaced by MapBase's keys.")
+  Set<String> get listedLanguage => Set.unmodifiable(keys);
+
+  /// Resolve [key] as language and find repersented [Color] from providers.
+  ///
+  /// If [key] is undefined, it returns default colour instead.
+  @override
+  Color operator [](Object? key) => _githubLangColour[key] ?? _defaultColour;
+
+  @override
+  int get alpha => _defaultColour.red;
+
+  @override
+  int get blue => _defaultColour.blue;
+
+  @override
+  double computeLuminance() => _defaultColour.computeLuminance();
+
+  @override
+  int get green => _defaultColour.green;
+
+  @override
+  Iterable<String> get keys => Set.unmodifiable(_githubLangColour.keys);
+
+  @override
+  double get opacity => _defaultColour.opacity;
+
+  @override
+  int get red => _defaultColour.red;
+
+  @override
+  int get value => _defaultColour.value;
+
+  @override
+  Color withAlpha(int a) => _defaultColour.withAlpha(a);
+
+  @override
+  Color withBlue(int b) => _defaultColour.withBlue(b);
+
+  @override
+  Color withGreen(int g) => _defaultColour.withGreen(g);
+
+  @override
+  Color withOpacity(double opacity) => _defaultColour.withOpacity(opacity);
+
+  @override
+  Color withRed(int r) => _defaultColour.withRed(r);
 }
 
 /// Alias type for repersenting "colour" in American English which does exactly

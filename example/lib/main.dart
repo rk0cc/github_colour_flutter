@@ -52,15 +52,13 @@ class _GitHubColourDemoState extends State<GitHubColourDemo> {
     });
   }
 
-  Color get _githubColourState => GitHubColour.getExistedInstance().find(_lang,
-      // Use default colour if unexisted.
-      onUndefined: () => GitHubColour.defaultColour);
+  Color get _githubColourState => GitHubColour.getExistedInstance()[_lang];
 
   @override
   Widget build(BuildContext context) => Scaffold(
       appBar: AppBar(
           // Change app bar background colour when enter the language.
-          backgroundColor: _githubColourState,
+          backgroundColor: GitHubColour.getExistedInstance()[_lang],
           title: const Text("GitHub colour")),
       drawer: Drawer(
           child: ListView(children: <Widget>[
