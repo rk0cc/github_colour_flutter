@@ -5,6 +5,7 @@
   * **If encounter hashing mismatch error, please clean cache and launch again.**
 * All deprecated API removed
 * Update `color.json`
+* `getInstance` becomes deprecated and uses `initialize` instead.
 
 ## 2.0.0+1
 

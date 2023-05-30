@@ -79,9 +79,6 @@ class GitHubColour extends UnmodifiableMapBase<String, Color>
 
   /// Construct an instance of [GitHubColour].
   ///
-  /// If no instance created, it will construct and will be reused when
-  /// [getInstance] or [getExistedInstance] called again.
-  ///
   /// If [offlineLastResort] enabled, it loads package's `colors.json` for
   /// getting colour data offline. And it must be called after
   /// [WidgetsFlutterBinding.ensureInitialized] invoked in `main()` method to
@@ -94,15 +91,14 @@ class GitHubColour extends UnmodifiableMapBase<String, Color>
   /// [SocketException](https://api.dart.dev/stable/dart-io/SocketException-class.html)
   /// in `"dart:io"` package).
   ///
-  /// [offlineLastResort] only works when [getInstance] invoked first time
+  /// [offlineLastResort] only works when [initialize] invoked first time
   /// in entire runtime. This parameter will be ignored once the instance
   /// constructed.
   ///
   /// Since `1.2.0`, it added chechsum validation on the cache. When the cache's
   /// checksum does not matched, it throws
   /// [GitHubColourCacheChecksumMismatchedError].
-  static Future<GitHubColour> getInstance(
-      {bool offlineLastResort = true}) async {
+  static Future<void> initialize({bool offlineLastResort = true}) async {
     if (_instance == null) {
       final Uri ghc = Uri.parse(_src);
       Map<String, Color> ghjson;
@@ -144,11 +140,24 @@ class GitHubColour extends UnmodifiableMapBase<String, Color>
 
       _instance = GitHubColour._(ghjson);
     }
+  }
+
+  /// Perform [initialize] and return [GitHubColour].
+  /// 
+  /// If no instance created, it will construct and will be reused when
+  /// [getInstance] or [getExistedInstance] called again.
+  /// 
+  /// This method is deprecated since it may not required to uses [GitHubColour]
+  /// once the instance created.
+  @Deprecated("Please call void function `initialize()`")
+  static Future<GitHubColour> getInstance(
+      {bool offlineLastResort = true}) async {
+    await initialize(offlineLastResort: offlineLastResort);
 
     return _instance!;
   }
 
-  /// Get constructed instance which called [getInstance] early.
+  /// Get constructed instance which called [initialize] early.
   ///
   /// It throws [UnimplementedError] if called with no existed instance.
   static GitHubColour getExistedInstance() {

@@ -5,6 +5,17 @@ repository: https://github.com/rk0cc/github_colour_flutter
 topics:
   - color
   - colour
+screenshots:
+  - description: 'C++ colour'
+    path: screenshots/6qOSnXq.png
+  - description: 'Java colour'
+    path: screenshots/6Ho6RyT.png
+  - description: 'Golang colour'
+    path: screenshots/Ksf3x3o.png
+  - description: 'Dart colour'
+    path: screenshots/uSiOYUF.png
+  - description: 'Python colour'
+    path: screenshots/yaTEp1i.png
 environment:
   sdk: ">=2.17.0 <4.0.0"
   flutter: ">=3.0.0"
