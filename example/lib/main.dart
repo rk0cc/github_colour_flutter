@@ -5,11 +5,11 @@ void main() async {
   // Required if want to uses offline JSON data as last resort.
   WidgetsFlutterBinding.ensureInitialized();
   // Construct an instance for future uses.
-  await GitHubColour.getInstance();
+  await GitHubColour.initialize();
 
   // It does not required binding if disabled offline last resort
   /*
-    await GitHubColour.getInstance(offlineLastResort: false);
+    await GitHubColour.initialize(offlineLastResort: false);
    */
 
   runApp(const App());
