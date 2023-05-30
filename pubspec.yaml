@@ -6,15 +6,15 @@ topics:
   - color
   - colour
 screenshots:
-  - description: 'C++ colour'
+  - description: 'C++ colour applied'
     path: screenshots/6qOSnXq.png
-  - description: 'Java colour'
+  - description: 'Java colour applied'
     path: screenshots/6Ho6RyT.png
-  - description: 'Golang colour'
+  - description: 'Golang colour applied'
     path: screenshots/Ksf3x3o.png
-  - description: 'Dart colour'
+  - description: 'Dart colour applied'
     path: screenshots/uSiOYUF.png
-  - description: 'Python colour'
+  - description: 'Python colour applied'
     path: screenshots/yaTEp1i.png
 environment:
   sdk: ">=2.17.0 <4.0.0"
