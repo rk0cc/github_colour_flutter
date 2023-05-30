@@ -15,13 +15,13 @@ You can either initalized `GitHubColour` before `runApp(Widget)` (Call it after 
 // With offline last resort
 void main() async {
     WidgetsFlutterBinding.ensureInitialized();
-    await GitHubColour.getInstance();
+    await GitHubColour.initialize();
     runApp(const YourApp());
 }
 
 // Without offline last resort
 void main() async {
-    await GitHubColour.getInstance(offlineLastResort: false);
+    await GitHubColour.initialize(offlineLastResort: false);
     runApp(const YourApp());
 }
 ```
@@ -33,30 +33,8 @@ class YourAppWidget extends StatelessWidget {
     @override
     Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
-            backgroundColor: GitHubColour.getExistedInstance().find("Go")
+            backgroundColor: GitHubColour.getExistedInstance()["Go"]
         )
-    );
-}
-```
-
-or wrapped into `FutureBuilder` with initalized `Future<GitHubColour>` variable from `State`'s `initState` (not recommended uses `getInstance()` directly in `FutureBuilder`):
-
-```dart
-class _YourAnotherAppWidgetState extends State<YourAnotherAppWidget> {
-    late final Future<GitHubColour> _ghc;
-
-    @override
-    void initState() {
-        super.initState();
-        _ghc = GitHubColour.getInstance();
-    }
-
-    @override
-    Widget build(BuildContext context) => FutureBuilder<GitHubColour>(
-        future: _ghc,
-        builder: (context, snapshot) {
-            // Implement whatever you want
-        }
     );
 }
 ```

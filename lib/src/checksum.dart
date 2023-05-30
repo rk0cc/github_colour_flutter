@@ -1,13 +1,11 @@
 import 'dart:typed_data';
 
-import "package:sha3/sha3.dart";
-import "package:hex/hex.dart";
+import 'package:hashlib/hashlib.dart';
 
 String generateChecksum(Uint8List rghc) {
-  SHA3 k = SHA3(256, SHA3_PADDING, 256);
-  k.update(rghc);
-  var hash = k.digest();
-  return HEX.encode(hash);
+  final hash = sha3_256.convert(rghc);
+
+  return hash.hex();
 }
 
 bool isValidChecksum(String providedHex, Uint8List rghc) =>

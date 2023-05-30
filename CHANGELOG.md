@@ -1,3 +1,16 @@
+## 3.0.0
+
+* Dart 3 supported
+* Uses `hashlib` to replace `sha3` and `hex`
+  * **If encounter hashing mismatch error, please clean cache and launch again.**
+* All deprecated API removed
+* Update `color.json`
+* `getInstance` becomes deprecated and uses `initialize` instead.
+
+## 2.0.0+1
+
+* Fix document
+
 ## 2.0.0
 
 * `GitHubColour` implemented with `ColorSwatch` and `UnmodifiableMapBase` now.

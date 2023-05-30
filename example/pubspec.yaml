@@ -1,19 +1,19 @@
 name: example
 description: A new Flutter project.
 publish_to: 'none'
-version: 1.0.0+2
+version: 2.0.0
 environment:
-  sdk: ">=2.16.2 <3.0.0"
+  sdk: ">=2.17.0 <4.0.0"
 dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.2
   github_colour:
     path: '../'
-  url_launcher: ^6.1.0
-  font_awesome_flutter: ^10.1.0
-  google_fonts: ^2.3.2
+  url_launcher: ^6.1.11
+  font_awesome_flutter: ^10.4.0
+  google_fonts: ^4.0.5
 dev_dependencies:
-  flutter_lints: ^1.0.0
+  flutter_lints: ^2.0.0
 flutter:
   uses-material-design: true

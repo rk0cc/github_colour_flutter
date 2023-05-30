@@ -22,9 +22,6 @@ export 'src/exception.dart';
 const String _src =
     "https://raw.githubusercontent.com/ozh/github-colors/master/colors.json";
 
-/// A handler when no language data found in [GitHubColour.find].
-typedef LanguageUndefinedHandler = Color Function();
-
 /// An [Error] thrown when response unsuccessfully and no cache can be used.
 class GitHubColourHTTPLoadFailedError extends GitHubColourLoadFailedError {
   /// HTTP response code when fetching colour data.
@@ -46,18 +43,6 @@ class GitHubColourNoAvailableResourceError extends GitHubColourLoadFailedError {
   @override
   String toString() =>
       "GitHubColourNoAvailableResourceError: Unable to read GitHub colour data with all available sources.";
-}
-
-/// An [Error] when no colour data of the language.
-@Deprecated("This exception will be removed with find()")
-class UndefinedLanguageColourError extends ArgumentError
-    implements GitHubColourThrowable {
-  /// Undefined language name.
-  final String undefinedLanguage;
-
-  UndefinedLanguageColourError._(this.undefinedLanguage)
-      : super("Unknown language '$undefinedLanguage'",
-            "UndefinedLanguageColourError");
 }
 
 Color _hex2C(String hex, [String alphaHex = "ff"]) {
@@ -94,9 +79,6 @@ class GitHubColour extends UnmodifiableMapBase<String, Color>
 
   /// Construct an instance of [GitHubColour].
   ///
-  /// If no instance created, it will construct and will be reused when
-  /// [getInstance] or [getExistedInstance] called again.
-  ///
   /// If [offlineLastResort] enabled, it loads package's `colors.json` for
   /// getting colour data offline. And it must be called after
   /// [WidgetsFlutterBinding.ensureInitialized] invoked in `main()` method to
@@ -109,15 +91,14 @@ class GitHubColour extends UnmodifiableMapBase<String, Color>
   /// [SocketException](https://api.dart.dev/stable/dart-io/SocketException-class.html)
   /// in `"dart:io"` package).
   ///
-  /// [offlineLastResort] only works when [getInstance] invoked first time
+  /// [offlineLastResort] only works when [initialize] invoked first time
   /// in entire runtime. This parameter will be ignored once the instance
   /// constructed.
   ///
   /// Since `1.2.0`, it added chechsum validation on the cache. When the cache's
   /// checksum does not matched, it throws
   /// [GitHubColourCacheChecksumMismatchedError].
-  static Future<GitHubColour> getInstance(
-      {bool offlineLastResort = true}) async {
+  static Future<void> initialize({bool offlineLastResort = true}) async {
     if (_instance == null) {
       final Uri ghc = Uri.parse(_src);
       Map<String, Color> ghjson;
@@ -159,11 +140,24 @@ class GitHubColour extends UnmodifiableMapBase<String, Color>
 
       _instance = GitHubColour._(ghjson);
     }
+  }
+
+  /// Perform [initialize] and return [GitHubColour].
+  /// 
+  /// If no instance created, it will construct and will be reused when
+  /// [getInstance] or [getExistedInstance] called again.
+  /// 
+  /// This method is deprecated since it may not required to uses [GitHubColour]
+  /// once the instance created.
+  @Deprecated("Please call void function `initialize()`")
+  static Future<GitHubColour> getInstance(
+      {bool offlineLastResort = true}) async {
+    await initialize(offlineLastResort: offlineLastResort);
 
     return _instance!;
   }
 
-  /// Get constructed instance which called [getInstance] early.
+  /// Get constructed instance which called [initialize] early.
   ///
   /// It throws [UnimplementedError] if called with no existed instance.
   static GitHubColour getExistedInstance() {
@@ -173,45 +167,6 @@ class GitHubColour extends UnmodifiableMapBase<String, Color>
 
     return _instance!;
   }
-
-  /// Find [Color] for the [language] (case sensitive).
-  ///
-  /// If [language] is undefined or defined with `null`, it calls [onUndefined]
-  /// for getting fallback [Color]. By default, it throws
-  /// [UndefinedLanguageColourError].
-  @Deprecated("You can uses operator [] now.")
-  Color find(String language, {LanguageUndefinedHandler? onUndefined}) =>
-      _githubLangColour[language] ??
-      (onUndefined ??
-          () {
-            throw UndefinedLanguageColourError._(language);
-          })();
-
-  /// Check does the [language] existed.
-  @Deprecated("Please uses containsKey")
-  bool contains(String language) => containsKey(language);
-
-  /// **This method do absolutely nothing with parsed paramenters and will
-  /// be removed later**
-  ///
-  /// ~~Export all recorded of [GitHubColour] data to [ColorSwatch] with [String]
-  /// as index.~~
-  ///
-  /// ~~By default, [includeDefault] set as `false`. If `true`, the [ColorSwatch]
-  /// will appended `__default__` index for repersenting [defaultColour] which
-  /// also is [ColorSwatch]'s default colour.~~
-  ///
-  /// ~~If [overridePrimaryColour] applied and [find] existed [Color], it applied
-  /// as [ColorSwatch]'s primary colour instead of [defaultColour].~~
-  @Deprecated(
-      "This method will be removed as GitHubColour implemented ColorSwatch")
-  ColorSwatch<String> toSwatch(
-          {bool includeDefault = false, String? overridePrimaryColour}) =>
-      this;
-
-  /// Get a [Set] of [String] that contains all recorded langauages name.
-  @Deprecated("This getter is replaced by MapBase's keys.")
-  Set<String> get listedLanguage => Set.unmodifiable(keys);
 
   /// Resolve [key] as language and find repersented [Color] from providers.
   ///

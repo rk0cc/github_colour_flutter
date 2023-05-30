@@ -11,7 +11,16 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 void main() async {
-  await GitHubColour.getInstance(offlineLastResort: false);
+  // Required if want to uses offline JSON data as last resort.
+  WidgetsFlutterBinding.ensureInitialized();
+  // Construct an instance for future uses.
+  await GitHubColour.initialize();
+
+  // It does not required binding if disabled offline last resort
+  /*
+    await GitHubColour.initialize(offlineLastResort: false);
+   */
+
   runApp(const App());
 }
 
