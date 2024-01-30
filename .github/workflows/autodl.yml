@@ -1,0 +1,25 @@
+name: Auto download colour backup data
+on:
+  schedule:
+    - cron: 0 10 15 1,4,7,10 *
+  workflow_dispatch: 
+jobs:
+  download:
+    name: Download colour data
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Download colours data
+        working-directory: lib/
+        run: curl -L https://raw.githubusercontent.com/ozh/github-colors/master/colors.json -o colour.json
+      - name: Config Git
+        run: |
+          git config --local user.name "Colour fetch"
+          git config --local user.email "enquiry@rk0cc.xyz"
+          git commit --am "Update colour backup data"
+      - name: Push
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: main
