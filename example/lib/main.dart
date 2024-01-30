@@ -20,12 +20,9 @@ class App extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => MaterialApp(
-        title: 'GitHub Language colour',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
-        home: const GitHubColourDemo(),
-      );
+      title: 'GitHub Language colour',
+      theme: ThemeData(primarySwatch: Colors.blue, useMaterial3: false),
+      home: const GitHubColourDemo());
 }
 
 class GitHubColourDemo extends StatefulWidget {
@@ -82,6 +79,6 @@ class _GitHubColourDemoState extends State<GitHubColourDemo> {
                 width: 80,
                 height: 35,
                 child: ElevatedButton(
-                    child: const Text("Apply"), onPressed: _changeColour))
+                    onPressed: _changeColour, child: const Text("Apply")))
           ])));
 }

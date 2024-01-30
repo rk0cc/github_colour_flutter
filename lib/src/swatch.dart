@@ -14,7 +14,8 @@ const String _src =
     "https://raw.githubusercontent.com/ozh/github-colors/master/colors.json";
 
 /// An [Error] thrown when response unsuccessfully and no cache can be used.
-final class GitHubColourHTTPLoadFailedError extends GitHubColourLoadFailedError {
+final class GitHubColourHTTPLoadFailedError
+    extends GitHubColourLoadFailedError {
   /// HTTP response code when fetching colour data.
   final int responseCode;
 
@@ -27,7 +28,8 @@ final class GitHubColourHTTPLoadFailedError extends GitHubColourLoadFailedError 
 }
 
 /// An [Error] thrown when no resources available to initalize [GitHubColour].
-final class GitHubColourNoAvailableResourceError extends GitHubColourLoadFailedError {
+final class GitHubColourNoAvailableResourceError
+    extends GitHubColourLoadFailedError {
   GitHubColourNoAvailableResourceError._();
 
   @override
@@ -64,7 +66,7 @@ final class GitHubColour extends UnmodifiableMapBase<String, Color>
   static Color get _defaultColour => _hex2C(_defaultColourHex);
 
   GitHubColour._(Map<String, Color> githubLangColour)
-      : this._githubLangColour = Map.unmodifiable(githubLangColour);
+      : _githubLangColour = Map.unmodifiable(githubLangColour);
 
   /// Construct an instance of [GitHubColour].
   ///
@@ -132,10 +134,10 @@ final class GitHubColour extends UnmodifiableMapBase<String, Color>
   }
 
   /// Perform [initialize] and return [GitHubColour].
-  /// 
+  ///
   /// If no instance created, it will construct and will be reused when
   /// [getInstance] or [getExistedInstance] called again.
-  /// 
+  ///
   /// This method is deprecated since it may not required to uses [GitHubColour]
   /// once the instance created.
   @Deprecated("Please call void function `initialize()`")
