@@ -5,7 +5,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart'
     show Color, ColorSwatch, WidgetsFlutterBinding;
 import 'package:http/http.dart' as http show get;
-import 'package:meta/meta.dart' show sealed;
 
 import 'cache/cache.dart';
 import 'cache/exception.dart';
@@ -15,7 +14,7 @@ const String _src =
     "https://raw.githubusercontent.com/ozh/github-colors/master/colors.json";
 
 /// An [Error] thrown when response unsuccessfully and no cache can be used.
-class GitHubColourHTTPLoadFailedError extends GitHubColourLoadFailedError {
+final class GitHubColourHTTPLoadFailedError extends GitHubColourLoadFailedError {
   /// HTTP response code when fetching colour data.
   final int responseCode;
 
@@ -28,7 +27,7 @@ class GitHubColourHTTPLoadFailedError extends GitHubColourLoadFailedError {
 }
 
 /// An [Error] thrown when no resources available to initalize [GitHubColour].
-class GitHubColourNoAvailableResourceError extends GitHubColourLoadFailedError {
+final class GitHubColourNoAvailableResourceError extends GitHubColourLoadFailedError {
   GitHubColourNoAvailableResourceError._();
 
   @override
@@ -53,8 +52,7 @@ Map<String, Color> _colourReader(String json) =>
 ///
 /// Since 2.0.0, [GitHubColour] implemented [ColorSwatch] that getting colour
 /// can be more convenience. And serval old API will be [Deprecated].
-@sealed
-class GitHubColour extends UnmodifiableMapBase<String, Color>
+final class GitHubColour extends UnmodifiableMapBase<String, Color>
     implements ColorSwatch<String> {
   static GitHubColour? _instance;
   final Map<String, Color> _githubLangColour;
