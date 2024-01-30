@@ -16,11 +16,14 @@ jobs:
         working-directory: lib/
         run: curl -L https://raw.githubusercontent.com/ozh/github-colors/master/colors.json -o colour.json
       - name: Config Git
+        id: gitconf
         run: |
           git config --local user.name "Colour fetch"
           git config --local user.email "enquiry@rk0cc.xyz"
-          git commit -a -m "Update colour backup data"
+          git add .
+          git commit -m "Update colour backup data"
       - name: Push
+        if: ${{ steps.gitconf.outcome == success() }}
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
