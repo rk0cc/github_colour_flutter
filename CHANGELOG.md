@@ -1,3 +1,9 @@
+## 3.1.0
+
+* Drop Dart 2 support
+* Mark some classes as immutable
+* Improved source code directory layout
+
 ## 3.0.0
 
 * Dart 3 supported
