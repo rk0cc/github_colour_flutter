@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:flutter/widgets.dart' show Color;
+import 'package:meta/meta.dart' show internal;
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../checksum.dart';
@@ -12,6 +13,7 @@ import 'exception.dart';
 const String _spKey = "github_colour_cache";
 const String _spcKey = "github_colour_cache_checksum";
 
+@internal
 Future<void> saveCache(Map<String, Color> githubColour) async {
   SharedPreferences sp = await SharedPreferences.getInstance();
 
@@ -24,6 +26,7 @@ Future<void> saveCache(Map<String, Color> githubColour) async {
   }
 }
 
+@internal
 Future<Map<String, Color>> getCache() async {
   SharedPreferences sp = await SharedPreferences.getInstance();
 
