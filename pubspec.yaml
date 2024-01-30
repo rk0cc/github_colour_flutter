@@ -1,34 +1,36 @@
 name: github_colour
 description: Receive ozh's GitHub colour to Flutter's colour implementation with caching and fallback.
-version: 3.0.0
+version: 3.1.0
 repository: https://github.com/rk0cc/github_colour_flutter
 topics:
   - color
   - colour
 screenshots:
-  - description: 'C++ colour'
+  - description: 'C++ colour applied'
     path: screenshots/6qOSnXq.png
-  - description: 'Java colour'
+  - description: 'Java colour applied'
     path: screenshots/6Ho6RyT.png
-  - description: 'Golang colour'
+  - description: 'Golang colour applied'
     path: screenshots/Ksf3x3o.png
-  - description: 'Dart colour'
+  - description: 'Dart colour applied'
     path: screenshots/uSiOYUF.png
-  - description: 'Python colour'
+  - description: 'Python colour applied'
     path: screenshots/yaTEp1i.png
 environment:
-  sdk: ">=2.17.0 <4.0.0"
-  flutter: ">=3.0.0"
+  sdk: ">=3.0.0 <4.0.0"
+  flutter: ">=3.10.0"
 dependencies:
   flutter:
     sdk: flutter
-  http: ^1.0.0
+  http: ^1.1.0
   meta: ^1.9.1
   path: ^1.8.3
-  path_provider: ^2.0.15
+  path_provider: ^2.1.1
   lzma: ^1.0.1
-  shared_preferences: ^2.1.1
-  hashlib: ^1.11.4
+  shared_preferences: ^2.2.2
+  hashlib: ^1.12.0
+dev_dependencies: 
+  flutter_lints: ^3.0.1
 flutter:
   uses-material-design: true
   assets:

@@ -5,7 +5,7 @@ abstract class GitHubColourThrowable {
   ///
   /// This getter as `dynamic` type that to make compatable in built-in
   /// [Error] and [Exception] (e.g. [AssertionError]).
-  get message;
+  dynamic get message;
 
   /// Constructor of [GitHubColourThrowable].
   ///
@@ -19,7 +19,8 @@ abstract class GitHubColourThrowable {
 /// An [Error] that can not fetch [GitHubColour] data.
 abstract class GitHubColourLoadFailedError extends Error
     implements GitHubColourThrowable {
-  final message;
+  @override
+  final dynamic message;
 
   /// Constructor when some issue happended during loading GitHub colour data.
   GitHubColourLoadFailedError(
@@ -27,5 +28,5 @@ abstract class GitHubColourLoadFailedError extends Error
           "There are some unexpected error when loading resources."]);
 
   @override
-  String toString() => message;
+  String toString() => "$message";
 }

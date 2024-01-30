@@ -2,6 +2,7 @@ import "dart:io";
 import 'dart:typed_data';
 
 import 'package:flutter/widgets.dart' show Color;
+import 'package:meta/meta.dart';
 import "package:path/path.dart" as path;
 import "package:path_provider/path_provider.dart" as path_provider;
 
@@ -45,6 +46,7 @@ Future<File> get _cacheChecksum async {
   return checksum;
 }
 
+@internal
 Future<void> saveCache(Map<String, Color> githubColour) async {
   File tf = await _cacheFile;
   File cf = await _cacheChecksum;
@@ -57,6 +59,7 @@ Future<void> saveCache(Map<String, Color> githubColour) async {
   }
 }
 
+@internal
 Future<Map<String, Color>> getCache() async {
   File tf = await _cacheFile;
 
