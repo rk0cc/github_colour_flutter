@@ -3,6 +3,7 @@
 * Drop Dart 2 support
 * Mark some classes as immutable
 * Improved source code directory layout
+* Lints
 
 ## 3.0.0
 
