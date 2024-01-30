@@ -10,6 +10,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - name: Download colours data
         working-directory: lib/
         run: curl -L https://raw.githubusercontent.com/ozh/github-colors/master/colors.json -o colour.json
@@ -17,7 +19,7 @@ jobs:
         run: |
           git config --local user.name "Colour fetch"
           git config --local user.email "enquiry@rk0cc.xyz"
-          git commit --am "Update colour backup data"
+          git commit -a -m "Update colour backup data"
       - name: Push
         uses: ad-m/github-push-action@master
         with:
