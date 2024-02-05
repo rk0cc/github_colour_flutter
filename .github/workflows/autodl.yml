@@ -1,7 +1,7 @@
 name: Auto download colour backup data
 on:
   schedule:
-    - cron: 0 10 15 1,4,7,10 *
+    - cron: 0 10 15 1,7 *
   workflow_dispatch: 
 jobs:
   download:
