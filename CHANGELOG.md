@@ -1,3 +1,9 @@
+## 3.2.0
+
+* Replace web caching storage library from `shared_preference` to `sembast_web` for native Blob supported.
+* Apply trimmed `color.json` which removes unused fields.
+* Apply class extension scope.
+
 ## 3.1.0
 
 * Drop Dart 2 support
