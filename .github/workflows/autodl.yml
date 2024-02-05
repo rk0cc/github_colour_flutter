@@ -20,13 +20,20 @@ jobs:
         with:
           input_file: lib/colors.json
       - name: Config Git
-        id: gitconf
         run: |
           git config --local user.name "Colour fetch"
           git config --local user.email "enquiry@rk0cc.xyz"
+      - name: Check differences
+        id: difference
+        run: git diff --quite
+        continue-on-error: true
+      - name: Add and commit
+        if: steps.difference.outcome == 'failure'
+        run: |
           git add .
           git commit -m "Update colour backup data"
       - name: Push
+        if: steps.difference.outcome == 'failure'
         uses: ad-m/github-push-action@master
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
