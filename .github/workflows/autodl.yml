@@ -25,7 +25,7 @@ jobs:
           git config --local user.email "enquiry@rk0cc.xyz"
       - name: Check differences
         id: difference
-        run: git diff --quite
+        run: git diff --quiet
         continue-on-error: true
       - name: Add and commit
         if: steps.difference.outcome == 'failure'
