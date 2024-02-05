@@ -15,10 +15,9 @@ jobs:
       - name: Download colours data
         working-directory: lib/
         run: curl -LO https://raw.githubusercontent.com/ozh/github-colors/master/colors.json
-      - name: Minify data
-        uses: StefanEnsmann/Minify-JSON-Action@1.1.0
-        with:
-          input_file: lib/colors.json
+      - name: Trim data
+        shell: pwsh
+        run: .\trim.ps1
       - name: Config Git
         run: |
           git config --local user.name "Colour fetch"
