@@ -1,40 +1,77 @@
-import 'dart:convert';
 import 'dart:typed_data';
 
 import 'package:flutter/widgets.dart' show Color;
 import 'package:meta/meta.dart' show internal;
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:sembast/sembast.dart';
+import 'package:sembast/blob.dart';
+import 'package:sembast_web/sembast_web.dart';
 
 import '../checksum.dart';
 import "../compression.dart";
 import '../conversion.dart';
 import 'exception.dart';
 
-const String _spKey = "github_colour_cache";
-const String _spcKey = "github_colour_cache_checksum";
+const String _dbName = "github_colour_cache";
+const String _ctxKey = "cache_content";
+const String _checkKey = "cache_checksum";
+
+Future<Database> _openDB() {
+  DatabaseFactory dbf = databaseFactoryWeb;
+
+  return dbf.openDatabase(_dbName);
+}
+
+StoreRef<String, Object> _getStoreRef() => StoreRef("${_dbName}_store");
 
 @internal
 Future<void> saveCache(Map<String, Color> githubColour) async {
-  SharedPreferences sp = await SharedPreferences.getInstance();
+  final Uint8List rghc = encodedColour(githubColour);
+  final Database db = await _openDB();
 
-  Uint8List rghc = encodedColour(githubColour);
+  try {
+    final store = _getStoreRef();
 
-  if (!isValidChecksum(sp.getString(_spcKey) ?? "", rghc)) {
-    // There are no ways to store bytes directly
-    await sp.setString(_spKey, base64Encode(compressGHC(rghc)));
-    await sp.setString(_spcKey, generateChecksum(rghc));
+    var currentCache = await store.record(_ctxKey).get(db);
+    var currentChecksum = await store.record(_checkKey).get(db);
+
+    if (currentCache is Blob && currentChecksum is String) {
+      if (isValidChecksum(currentChecksum, currentCache.bytes)) {
+        return;
+      }
+    }
+
+    var writeCache =
+        store.record(_ctxKey).put(db, Blob(compressGHC(rghc)), merge: false);
+    var writeChecksum =
+        store.record(_checkKey).put(db, generateChecksum(rghc), merge: false);
+
+    await writeCache;
+    await writeChecksum;
+  } finally {
+    await db.close();
   }
 }
 
 @internal
 Future<Map<String, Color>> getCache() async {
-  SharedPreferences sp = await SharedPreferences.getInstance();
+  final Database db = await _openDB();
 
-  Uint8List rghc = decompressGHC(base64Decode(sp.getString(_spKey)!));
+  try {
+    final store = _getStoreRef();
 
-  if (!isValidChecksum(sp.getString(_spcKey)!, rghc)) {
+    var currentCache = await store.record(_ctxKey).get(db);
+    var currentChecksum = await store.record(_checkKey).get(db);
+
+    if (currentCache is Blob && currentChecksum is String) {
+      Uint8List ctx = currentCache.bytes;
+
+      if (isValidChecksum(currentChecksum, ctx)) {
+        return decodeColour(decompressGHC(ctx));
+      }
+    }
+
     throw GitHubColourCacheChecksumMismatchedError();
+  } finally {
+    await db.close();
   }
-
-  return decodeColour(rghc);
 }
