@@ -1,19 +1,11 @@
 /// As a Java's `Throwable` roles which uses for implementing [Exception] and
 /// [Error] in this package.
-abstract class GitHubColourThrowable {
+abstract interface class GitHubColourThrowable {
   /// Message display in [GitHubColourThrowable].
   ///
   /// This getter as `dynamic` type that to make compatable in built-in
   /// [Error] and [Exception] (e.g. [AssertionError]).
   dynamic get message;
-
-  /// Constructor of [GitHubColourThrowable].
-  ///
-  /// This factory aims to prevent implementing [GitHubColourThrowable] by
-  /// extending classes.
-  factory GitHubColourThrowable() {
-    throw UnimplementedError("Do not extends this throwable.");
-  }
 }
 
 /// An [Error] that can not fetch [GitHubColour] data.

@@ -41,10 +41,9 @@ class YourAppWidget extends StatelessWidget {
 
 ## Cache for connection failed
 
-This package supported caching system as a backup when making request failed. It uses LZMA compress data and store as a file under temporary directory (for VM)
-or store as `shared_preference` (for Web, which is `LocalStorage`).
+This package supported caching system as a backup when making request failed. It uses LZMA compress data and store as a file under temporary directory (for VM) or store under `sembast_web` (based on IndexedDB, `3.1.0` or before was using `shared_preference`).
 
-If no cache available, by default, `GitHubColour.getInstance()` will uses [local's `colors.json`](lib/colors.json) as last resort. However, this package will not synchronized when newer commit of `color.json` pushed since it minified that ensure the package can be downloaded as fast as possible.
+If no cache available, when executing `GitHubColour.initialize()`, it will uses [local's `colors.json`](lib/colors.json) as last resort. However, this package will not synchronized when newer commit of `color.json` pushed since it minified that ensure the package can be downloaded as fast as possible.
 
 ## Note for American English developers
 
