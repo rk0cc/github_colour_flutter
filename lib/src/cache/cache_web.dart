@@ -23,6 +23,18 @@ Future<Database> _openDB() {
 
 StoreRef<String, Object> _getStoreRef() => StoreRef("${_dbName}_store");
 
+Future<(String, Uint8List)?> _getStoredChecksumAndCache(
+    Database db, StoreRef<String, Object> store) async {
+  var cache = await store.record(_ctxKey).get(db);
+  var checksum = await store.record(_checkKey).get(db);
+
+  try {
+    return (checksum as String, decompressGHC((cache as Blob).bytes));
+  } on TypeError {
+    return null;
+  }
+}
+
 @internal
 Future<void> saveCache(Map<String, Color> githubColour) async {
   final Uint8List rghc = encodedColour(githubColour);
@@ -31,22 +43,18 @@ Future<void> saveCache(Map<String, Color> githubColour) async {
   try {
     final store = _getStoreRef();
 
-    var currentCache = await store.record(_ctxKey).get(db);
-    var currentChecksum = await store.record(_checkKey).get(db);
+    var currentRecord = await _getStoredChecksumAndCache(db, store);
 
-    if (currentCache is Blob && currentChecksum is String) {
-      if (isValidChecksum(currentChecksum, currentCache.bytes)) {
-        return;
-      }
+    if (currentRecord != null) {
+      var (currentChecksum, currentCache) = currentRecord;
+
+      if (isValidChecksum(currentChecksum, currentCache)) return;
     }
 
-    var writeCache =
-        store.record(_ctxKey).put(db, Blob(compressGHC(rghc)), merge: false);
-    var writeChecksum =
-        store.record(_checkKey).put(db, generateChecksum(rghc), merge: false);
-
-    await writeCache;
-    await writeChecksum;
+    await Future.wait([
+      store.record(_ctxKey).put(db, Blob(compressGHC(rghc)), merge: false),
+      store.record(_checkKey).put(db, generateChecksum(rghc), merge: false)
+    ], eagerError: true);
   } finally {
     await db.close();
   }
@@ -59,14 +67,13 @@ Future<Map<String, Color>> getCache() async {
   try {
     final store = _getStoreRef();
 
-    var currentCache = await store.record(_ctxKey).get(db);
-    var currentChecksum = await store.record(_checkKey).get(db);
+    var currentRecord = await _getStoredChecksumAndCache(db, store);
 
-    if (currentCache is Blob && currentChecksum is String) {
-      Uint8List ctx = currentCache.bytes;
+    if (currentRecord != null) {
+      var (currentChecksum, currentCache) = currentRecord;
 
-      if (isValidChecksum(currentChecksum, ctx)) {
-        return decodeColour(decompressGHC(ctx));
+      if (isValidChecksum(currentChecksum, currentCache)) {
+        return decodeColour(currentCache);
       }
     }
 

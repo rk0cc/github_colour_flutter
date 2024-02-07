@@ -1,6 +1,6 @@
 name: github_colour
 description: Receive ozh's GitHub colour to Flutter's colour implementation with caching and fallback.
-version: 3.2.0
+version: 3.2.1
 repository: https://github.com/rk0cc/github_colour_flutter
 topics:
   - color
