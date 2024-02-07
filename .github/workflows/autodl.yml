@@ -13,11 +13,8 @@ jobs:
         with:
           fetch-depth: 0
       - name: Download colours data
-        working-directory: lib/
-        run: curl -LO https://raw.githubusercontent.com/ozh/github-colors/master/colors.json
-      - name: Trim data
         shell: pwsh
-        run: .\trim.ps1
+        run: .\fetch.ps1
       - name: Config Git
         run: |
           git config --local user.name "Colour fetch"

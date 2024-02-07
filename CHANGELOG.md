@@ -1,3 +1,7 @@
+## 3.2.1
+
+* Fix performing checksum before decompress cached colour data.
+
 ## 3.2.0
 
 * Replace web caching storage library from `shared_preference` to `sembast_web` for native Blob supported.
