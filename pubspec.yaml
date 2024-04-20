@@ -1,6 +1,6 @@
 name: github_colour
 description: Receive ozh's GitHub colour to Flutter's colour implementation with caching and fallback.
-version: 3.2.1
+version: 3.2.2
 repository: https://github.com/rk0cc/github_colour_flutter
 topics:
   - color
@@ -17,8 +17,8 @@ screenshots:
   - description: 'Python colour applied'
     path: screenshots/yaTEp1i.png
 environment:
-  sdk: ">=3.0.0 <4.0.0"
-  flutter: ">=3.10.0"
+  sdk: ">=3.3.0 <4.0.0"
+  flutter: ">=3.19.0"
 dependencies:
   flutter:
     sdk: flutter
@@ -27,8 +27,8 @@ dependencies:
   path: ^1.8.3
   path_provider: ^2.1.1
   lzma: ^1.0.1
-  sembast: ^3.6.0
-  sembast_web: ^2.2.0
+  sembast: ^3.7.0
+  sembast_web: ^2.3.0
   hashlib: ^1.12.0
 dev_dependencies: 
   flutter_lints: ^3.0.1
