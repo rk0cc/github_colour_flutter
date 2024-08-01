@@ -1,3 +1,7 @@
+## 3.2.3
+
+* Uses `fetch` API for web
+
 ## 3.2.2
 
 * Migrate to `package:web`
