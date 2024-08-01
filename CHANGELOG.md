@@ -1,3 +1,8 @@
+## 3.2.2
+
+* Migrate to `package:web`
+* Require Dart 3.3 or above
+
 ## 3.2.1
 
 * Fix performing checksum before decompress cached colour data.
