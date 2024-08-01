@@ -4,13 +4,13 @@ import 'dart:convert';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart'
     show Color, ColorSwatch, WidgetsFlutterBinding;
-import 'package:http/http.dart' hide delete, head, get, patch, post, put, read, readBytes, runWithClient;
+import 'package:http/http.dart'
+    hide delete, head, get, patch, post, put, read, readBytes, runWithClient;
 
 import 'cache/cache.dart';
 import 'cache/exception.dart';
 import 'exception.dart';
-import 'http/normal.dart'
-  if (dart.library.js_interop) 'http/web.dart';
+import 'http/normal.dart' if (dart.library.js_interop) 'http/web.dart';
 
 const String _src =
     "https://raw.githubusercontent.com/ozh/github-colors/master/colors.json";
